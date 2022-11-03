@@ -8,6 +8,12 @@ lazy val macroSettings = Seq(
   ),
 )
 
+lazy val compilerSettings = Seq(
+  libraryDependencies ++= Seq(
+    scalaOrganization.value % "scala-compiler" % scalaVersion.value,
+  ),
+)
+
 lazy val macroAnnotationSettings = Seq(
   scalacOptions ++= Seq(
     "-Ymacro-annotations",
@@ -66,3 +72,9 @@ lazy val annotationCore = (project in file("macro-annotations/core"))
     testSettings,
   )
   .dependsOn(annotationMacros)
+
+lazy val runtime = (project in file("runtime"))
+  .settings(
+    macroSettings,
+    compilerSettings,
+  )
